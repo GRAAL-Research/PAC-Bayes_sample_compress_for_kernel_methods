@@ -1,0 +1,28 @@
+----------------------------------------------------------------------------------------------------
+PAC-BAYES SAMPLE COMPRESS LEARNING ALGORITHM - CLASSIFICATION FUNCTION 
+Version 0.92 (June 26, 2012), Released under the BSD-license 
+----------------------------------------------------------------------------------------------------
+Author: 
+    Pascal Germain 
+    Groupe de Recherche en Apprentissage Automatique de l'Universite Laval (GRAAL) 
+    http://graal.ift.ulaval.ca/ 
+
+Reference: 
+    Pascal Germain, Alexandre Lacoste, François Laviolette, Mario Marchand, and Sara Shanian. 
+    A PAC-Bayes Sample Compression Approach to Kernel Methods. In Proceedings of the 28th 
+    International Conference on Machine Learning, Bellevue, WA, USA, June 2011. 
+----------------------------------------------------------------------------------------------------
+
+Usage: pbsc_classify [-label <value>] train_file test_file [model_file] [prediction_file] 
+
+Required parameters: 
+    train_file      Training dataset file  (tab/space separated, one exemple per line, 
+                                            first column contains -1/+1 labels) 
+    test_file       Testing dataset file   (same format than the training dataset file) 
+
+Optionnal parameters: 
+    model_file      Classifier file name outputed by the learner (default='classifier.ini') 
+    prediction_file Write predictions into that file 
+
+    -label          Indicates if the test file contains label (0=no label, default=1) 
+

@@ -1,0 +1,63 @@
+----------------------------------------------------------------------------------------------------
+PAC-BAYES SAMPLE COMPRESS LEARNING ALGORITHM - ALIGNED CASE  (aka PBSC-A) 
+Version 0.92 (June 26, 2012), Released under the BSD-license 
+----------------------------------------------------------------------------------------------------
+Author: 
+    Pascal Germain 
+    Groupe de Recherche en Apprentissage Automatique de l'Universite Laval (GRAAL) 
+    http://graal.ift.ulaval.ca/ 
+
+Reference: 
+    Pascal Germain, Alexandre Lacoste, François Laviolette, Mario Marchand, and Sara Shanian. 
+    A PAC-Bayes Sample Compression Approach to Kernel Methods. In Proceedings of the 28th 
+    International Conference on Machine Learning, Bellevue, WA, USA, June 2011. 
+----------------------------------------------------------------------------------------------------
+
+Usage: pbsc_align [-first_parameter <value>] ... [-last_parameter <value>] train_file [test_file] 
+
+Required parameters: 
+    train_file      Training dataset file  (tab/space separated, one exemple per line, 
+                                            first column contains -1/+1 labels) 
+
+Optionnal parameters: 
+    test_file       Testing dataset file   (same format than the training dataset file) 
+
+    -q              Minimum of the quadratic risk (default=0.02) 
+    -kernel         Kernel function, ie one of the following : (default='RBF')
+                        'LINEAR' : Linear kernel      k(x,y) = x*y 
+                        'RBF'    : Gaussian kernel    k(x,y) = exp(-gamma ||x-y||^2) 
+                        'POLY'   : Polynomial kernel  k(x,y) = (s x*y+c)^d 
+                        'TANH'   : Sigmoid kernel     k(x,y) = tanh(s x*y + c) 
+    -kernel.gamma   Kernel parameter gamma (default=0.1) 
+    -kernel.d       Kernel parameter d (default=2.0) 
+    -kernel.s       Kernel parameter s (default=1.0) 
+    -kernel.c       Kernel parameter c (default=0.0) 
+
+    -stopCriteria   Stopping criteria (default=1e-16) 
+    -nIter          Maximum number of iterations (defaut=2e5) 
+    -seed           Random generator seed (defaut=<System time>) 
+
+    -writeStep      Write log file at each n iterations (default=100) 
+    -log            Log file name (0=none, default='learner.log)
+    -stats          Statistics file name (0=none, default='results.ini')
+    -model          Classifier file name (0=none, default='classifier.ini') 
+    -config         Parameters file name (0=none, default='config.ini') 
+
+Examples: 
+    (1) Use the sigmoid (tanh) kernel with s=2 and c=0.1 on USvotes dataset: 
+
+       ./pbsc_align -kernel TANH -kernel.s 2 -kernel.c 0.1 USvotes_train.dat USvotes_test.dat
+
+    (2) Use the rbf kernel with gamma=0.5 on USvotes dataset, don't write any log file and 
+        don't compute a test risk for a faster execution: 
+
+       ./pbsc_align -kernel.gamma 0.5 -log 0 USvotes_train.dat 
+
+    (3) Load all parameters from 'example3.ini' file, except the q value (fix q=0.2 instead): 
+
+       ./pbsc_align -config exemple3.ini -q 0.2 USvotes_train.dat 
+
+    (4) Carefully write the trace of the 100 first iterations into 'USvotes_100.log' file: 
+
+       ./pbsc_align -nIter 100 -writeStep 1 -log USvotes_100.log USvotes_train.dat USvotes_test.dat 
+
